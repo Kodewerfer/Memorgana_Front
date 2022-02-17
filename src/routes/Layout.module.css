@@ -1,0 +1,44 @@
+.search {
+  @apply fixed right-0 top-0 ml-20 flex  h-16 w-full flex-row-reverse items-center justify-start 
+  rounded-b-lg bg-slate-700 pl-5;
+}
+
+.searchBar {
+  @apply mx-6 h-10 min-w-min origin-right rounded-3xl px-2 
+  text-center text-sm font-semibold italic transition-all
+  hover:rounded-md hover:not-italic
+  focus:w-full;
+}
+
+.darkMode {
+  @apply m-1 origin-left scale-100 cursor-pointer p-3 text-white 
+  transition-all;
+}
+
+.nav {
+  @apply relative top-0 m-0 h-screen w-20 flex-initial overflow-visible
+  bg-slate-800 pt-16;
+}
+.list {
+  @apply flex w-full flex-col items-center justify-center overflow-visible;
+}
+.item {
+  @apply mt-3 mb-1 flex h-16  w-16  cursor-pointer items-center
+  justify-center rounded-3xl bg-slate-700 text-white transition-all 
+  hover:rounded-xl hover:text-red-500;
+}
+
+.activeItem {
+  @apply item;
+  @apply text-red-800;
+}
+
+.tooltip {
+  @apply absolute left-24 z-0 m-2 min-w-max origin-left scale-0 
+  rounded-md bg-slate-800 p-2 text-xl font-extrabold shadow-md 
+  transition-all duration-100 ease-out;
+}
+
+.main {
+  @apply flex-1 pl-3 pt-16;
+}
