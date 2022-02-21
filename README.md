@@ -1,16 +1,16 @@
 # Memorgana
 
-Note taking app intended for l'apprentissage de la français
+Note taking app intended pour l'apprentissage de la français.
 
-rewrite of the old Deno project.
+Rewrite of the old Deno project.
 
-### CRA + Router V6 + Tailwind
+## CRA + Router V6 + Tailwind
 
-### All `Create-react-app` scripts applies.
+## All `Create-react-app` scripts applies.
 
 ---
 
-## Structure
+# Structure
 
 ```
 .
