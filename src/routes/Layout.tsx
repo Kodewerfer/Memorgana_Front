@@ -6,6 +6,7 @@ import { BiBrain } from "react-icons/bi";
 import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
 // custom hooks
 import useToggle from "../hooks/useToggle";
+import usePathNameOB from "../hooks/usePathNameOB";
 
 export default function Layout() {
   const [currentLocation, SetCurrentLocation] = useState(
@@ -15,14 +16,11 @@ export default function Layout() {
 
   // set active state on items
   // *wanted to make this stateless but oh well.
-  new MutationObserver(() => {
-    if (window.location.pathname === currentLocation) {
-      return;
-    }
+  usePathNameOB(() => {
     SetCurrentLocation((prev) => {
       return window.location.pathname;
     });
-  }).observe(document, { subtree: true, childList: true });
+  });
 
   return (
     <>
@@ -51,7 +49,7 @@ export default function Layout() {
             onClick={() => {
               toggleDarkMode();
             }}
-            className={`${Styles.darkModeToggle} oncl peer-focus:hidden`}
+            className={`${Styles.darkModeToggle} peer-focus:hidden`}
           >
             {isDarkMode ? (
               <MdOutlineDarkMode size={30} />
