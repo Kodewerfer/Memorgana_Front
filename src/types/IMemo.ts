@@ -1,7 +1,9 @@
+import IEntry_Related from "./IEntry_Related";
+
 export default interface IMemo {
   _id: string
   keyword: string
-  entries_related: [string]
+  entries_related: [IEntry_Related]
   description: string
   isDeleted: Boolean
   meta: {

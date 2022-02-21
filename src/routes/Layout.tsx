@@ -1,34 +1,66 @@
-import React from "react";
-import styles from "./Layout.module.css";
+import React, { useState } from "react";
+import Styles from "./Layout.module.css";
 import { Link, Outlet } from "react-router-dom";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { BiBrain } from "react-icons/bi";
-import { CgDarkMode } from "react-icons/cg";
+import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
+// custom hooks
+import useToggle from "../hooks/useToggle";
 
 export default function Layout() {
+  const [currentLocation, SetCurrentLocation] = useState(
+    window.location.pathname
+  );
+  const [isDarkMode, toggleDarkMode] = useToggle(false);
+
+  // set active state on items
+  // *wanted to make this stateless but oh well.
+  new MutationObserver(() => {
+    if (window.location.pathname === currentLocation) {
+      return;
+    }
+    SetCurrentLocation((prev) => {
+      return window.location.pathname;
+    });
+  }).observe(document, { subtree: true, childList: true });
+
   return (
     <>
-      <div className={styles.search}>
-        <input
-          type="text"
-          placeholder="search memos.."
-          className={`${styles.searchBar} peer`}
-        />
-        <span className={`${styles.darkMode} peer-focus:scale-0`}>
-          <CgDarkMode size={30} />
-        </span>
-      </div>
-      <nav className={styles.nav}>
-        <ul className={styles.list}>
-          <Items
+      {/*--- nav */}
+      <nav className={`${Styles.nav} ${isDarkMode ? "dark" : ""}`}>
+        <ul className={Styles.list}>
+          <Item
             to="/Memoboard"
             icon={<AiOutlineDashboard size={50} />}
             text={"Memo'board"}
           />
-          <Items to="/" icon={<BiBrain size={50} />} text={"Memʘωʘ"} />
+          <Item to="/" icon={<BiBrain size={50} />} text={"😀Memʘωʘ"} />
         </ul>
       </nav>
-      <main className={styles.main}>
+      {/*--- main */}
+      <main className={`${Styles.main} ${isDarkMode ? "dark" : ""}`}>
+        {/*---- search bar */}
+        <div className={`${Styles.header} ${isDarkMode ? "dark" : ""}`}>
+          <input
+            type="text"
+            placeholder="🔎search memos.."
+            className={`${Styles.searchBar} peer`}
+          />
+          {/*---- dark mode toggle */}
+          <span
+            onClick={() => {
+              toggleDarkMode();
+            }}
+            className={`${Styles.darkModeToggle} oncl peer-focus:hidden`}
+          >
+            {isDarkMode ? (
+              <MdOutlineDarkMode size={30} />
+            ) : (
+              <MdDarkMode size={30} />
+            )}
+          </span>
+        </div>
+
         <Outlet />
       </main>
     </>
@@ -36,7 +68,7 @@ export default function Layout() {
 }
 
 // nav item component
-function Items({
+function Item({
   to,
   icon,
   text = "Default Text",
@@ -45,10 +77,16 @@ function Items({
   icon: any;
   text: string;
 }) {
+  const currentLocation = window.location.pathname;
+
   return (
-    <div className={`${styles.item} group`}>
+    <div
+      className={`${
+        currentLocation === to ? Styles.itemActive : Styles.item
+      } group`}
+    >
       <Link to={to}>{icon}</Link>
-      <span className={`${styles.tooltip} group-hover:scale-100`}>{text}</span>
+      <span className={`${Styles.tooltip}  group-hover:scale-100`}>{text}</span>
     </div>
   );
 }

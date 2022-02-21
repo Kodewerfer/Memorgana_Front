@@ -8,7 +8,7 @@ import IMemo from "../types/IMemo";
 // don't want to burn a hole in my pocket with server bill.
 let memosRef: IMemo[];
 
-export default function useMemowo() {
+export default function useMemoData() {
   const [memos, setMemos] = useState<IMemo[]>([]);
 
   useDebugValue("useMemowo");
