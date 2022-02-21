@@ -58,4 +58,17 @@ function NewRelatedEntries() {
   );
 }
 
+// operator for side bar
+export function RouteActions({}) {
+  const currentLocation = window.location.pathname;
+
+  return (
+    <>
+      <div className={`${Styles.itemAction} group`}>
+        <span className={`${Styles.tooltip}  group-hover:scale-100`}>text</span>
+      </div>
+    </>
+  );
+}
+
 export default Memowo;

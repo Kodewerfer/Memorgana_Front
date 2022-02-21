@@ -40,3 +40,11 @@
   @apply cursor-default rounded-xl py-2  text-center text-zinc-400
   hover:bg-zinc-600 hover:text-zinc-200;
 }
+
+.itemAction {
+  composes: itemAction from "./Layout.module.css";
+}
+
+.tooltip {
+  composes: tooltip from "./Layout.module.css";
+}

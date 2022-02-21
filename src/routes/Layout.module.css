@@ -5,13 +5,15 @@
 }
 
 .nav {
-  @apply relative top-0 m-0 mr-0 h-screen w-20 overflow-visible
+  @apply relative top-0 m-0 mr-0 h-screen w-20 space-y-8 overflow-visible
   bg-zinc-800 pt-16;
 }
+
 .list {
   @apply flex w-full flex-col items-center justify-center space-y-5 overflow-visible;
 }
-.item {
+
+.itemNav {
   @apply flex h-16 w-16  cursor-pointer  items-center justify-center
   rounded-3xl bg-zinc-700 text-white transition-all 
   hover:rounded-xl hover:text-red-400;
@@ -24,12 +26,21 @@
 }
 
 .itemActive {
-  @apply item;
+  @apply itemNav;
   @apply text-red-600;
 }
 
 .itemActive .tooltip {
   @apply 2xl:scale-100;
+}
+
+.routeActions {
+  @apply list;
+}
+
+.itemAction {
+  @apply itemNav;
+  @apply h-14 w-14 rounded-xl bg-zinc-600 hover:rounded-3xl;
 }
 
 .main {

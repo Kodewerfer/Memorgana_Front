@@ -7,6 +7,8 @@ import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
 // custom hooks
 import useToggle from "../hooks/useToggle";
 import usePathNameOB from "../hooks/usePathNameOB";
+// sidebar operators
+import { RouteActions as MemowoActions } from "./Memowo";
 
 export default function Layout() {
   const [currentLocation, SetCurrentLocation] = useState(
@@ -14,8 +16,7 @@ export default function Layout() {
   );
   const [isDarkMode, toggleDarkMode] = useToggle(false);
 
-  // set active state on items
-  // *wanted to make this stateless but oh well.
+  // nav tracking
   usePathNameOB(() => {
     SetCurrentLocation((prev) => {
       return window.location.pathname;
@@ -27,12 +28,17 @@ export default function Layout() {
       {/*--- nav */}
       <nav className={`${Styles.nav} ${isDarkMode ? "dark" : ""}`}>
         <ul className={Styles.list}>
-          <Item
+          <NavItem
             to="/Memoboard"
             icon={<AiOutlineDashboard size={50} />}
-            text={"Memo'board"}
+            text={"Memo'board🤖"}
           />
-          <Item to="/" icon={<BiBrain size={50} />} text={"😀Memʘωʘ"} />
+          <NavItem to="/" icon={<BiBrain size={50} />} text={"Memʘωʘ😊"} />
+        </ul>
+        <ul className={Styles.routeActions}>
+          {/* route spec operations eg sorting */}
+          {currentLocation === "/" ? <MemowoActions /> : ""}
+          {/* Not classy, not at all  */}
         </ul>
       </nav>
       {/*--- main */}
@@ -66,7 +72,7 @@ export default function Layout() {
 }
 
 // nav item component
-function Item({
+function NavItem({
   to,
   icon,
   text = "Default Text",
@@ -80,7 +86,7 @@ function Item({
   return (
     <div
       className={`${
-        currentLocation === to ? Styles.itemActive : Styles.item
+        currentLocation === to ? Styles.itemActive : Styles.itemNav
       } group`}
     >
       <Link to={to}>{icon}</Link>
