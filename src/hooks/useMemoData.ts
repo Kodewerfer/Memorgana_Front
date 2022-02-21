@@ -11,7 +11,7 @@ let memosRef: IMemo[];
 export default function useMemoData() {
   const [memos, setMemos] = useState<IMemo[]>([]);
 
-  useDebugValue("useMemowo");
+  useDebugValue(memos);
 
   useEffect(() => {
     if (memosRef) {
