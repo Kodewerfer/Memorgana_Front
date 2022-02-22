@@ -36,6 +36,7 @@
 
 .routeActions {
   @apply list;
+  @apply origin-left transition-all;
 }
 
 .itemAction {

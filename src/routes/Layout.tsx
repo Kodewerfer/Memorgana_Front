@@ -15,6 +15,7 @@ export default function Layout() {
     window.location.pathname
   );
   const [isDarkMode, toggleDarkMode] = useToggle(false);
+  const [isSearching, toggleSearching] = useToggle(false);
 
   // nav tracking
   usePathNameOB(() => {
@@ -35,7 +36,11 @@ export default function Layout() {
           />
           <NavItem to="/" icon={<BiBrain size={50} />} text={"Memʘωʘ😊"} />
         </ul>
-        <ul className={Styles.routeActions}>
+        <ul
+          className={`${Styles.routeActions} ${
+            isSearching ? "scale-0" : "scale-100"
+          }`}
+        >
           {/* route spec operations eg sorting */}
           {currentLocation === "/" ? <MemowoActions /> : ""}
           {/* Not classy, not at all  */}
@@ -49,6 +54,12 @@ export default function Layout() {
             type="text"
             placeholder="🔎search memos.."
             className={`${Styles.searchBar} peer`}
+            onFocus={() => {
+              toggleSearching();
+            }}
+            onBlur={() => {
+              toggleSearching();
+            }}
           />
           {/*---- dark mode toggle */}
           <span
