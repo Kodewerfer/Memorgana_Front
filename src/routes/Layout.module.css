@@ -30,10 +30,6 @@
   @apply text-red-600;
 }
 
-.itemActive .tooltip {
-  @apply 2xl:scale-100;
-}
-
 .routeActions {
   @apply list;
   @apply origin-left transition-all;

@@ -1,6 +1,8 @@
 import React from "react";
 
 import useMemoData from "../hooks/useMemoData";
+import { useSearchStatus } from "../hooks/useSearchStatus";
+
 import Styles from "./Memowo.module.css";
 // types
 import IMemo from "../types/IMemo";
@@ -12,15 +14,16 @@ import { ImSortAmountDesc } from "react-icons/im";
 function Memowo(props: any) {
   // const { memos, fetchMemos } = useContext(MemoContext);
   const [memos, fetcheMemos] = useMemoData();
+  const { isSearching } = useSearchStatus();
 
   return (
     <div className={Styles.inner}>
-      <div className={Styles.list}>
+      <div className={`${isSearching ? Styles.onSearch : Styles.list}`}>
         {memos.map((memo) => (
           <Item key={memo._id} memo={memo} />
         ))}
-        <p className={Styles.endMark}>--- End ---</p>
       </div>
+      <p className={Styles.endMark}>--- End ---</p>
     </div>
   );
 }
@@ -67,6 +70,7 @@ export function RouteActions({}) {
     <>
       <div className={`${Styles.itemAction} group`}>
         <ImSortAmountDesc size={20} />
+        <div></div>
         <span className={`${Styles.tooltip}  group-hover:scale-100`}>
           sort by
         </span>

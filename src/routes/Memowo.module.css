@@ -6,6 +6,11 @@
   @apply w-full space-y-5 md:w-11/12 lg:w-10/12 2xl:w-9/12;
 }
 
+.onSearch {
+  @apply grid w-full grid-cols-3 gap-4 px-4 md:grid-cols-4 lg:grid-cols-5 
+  2xl:grid-cols-6;
+}
+
 .item {
   @apply flex origin-top-left flex-col flex-wrap items-center rounded-3xl
   text-zinc-200 shadow-xl;
@@ -17,8 +22,12 @@
 }
 
 .related {
-  @apply flex min-h-min w-full flex-wrap items-stretch space-x-1 py-2
-   px-10 text-left;
+  @apply flex min-h-min w-full origin-top scale-100 flex-wrap items-stretch
+   space-x-1 py-2 px-10 text-left;
+}
+
+.onSearch .related {
+  @apply h-4 scale-0;
 }
 
 .normal {
@@ -37,7 +46,7 @@
 }
 
 .endMark {
-  @apply cursor-default rounded-xl py-2  text-center text-zinc-400
+  @apply mt-3 w-full cursor-default  rounded-xl py-2 text-center text-zinc-400
   hover:bg-zinc-600 hover:text-zinc-200;
 }
 

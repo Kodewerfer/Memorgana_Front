@@ -36,15 +36,15 @@ export default function Layout() {
           />
           <NavItem to="/" icon={<BiBrain size={50} />} text={"Memʘωʘ😊"} />
         </ul>
+        {/* route spec operations eg sorting */}
         <ul
           className={`${Styles.routeActions} ${
             isSearching ? "scale-0" : "scale-100"
           }`}
         >
-          {/* route spec operations eg sorting */}
           {currentLocation === "/" ? <MemowoActions /> : ""}
-          {/* Not classy, not at all  */}
         </ul>
+        {/* Not classy, not at all  */}
       </nav>
       {/*--- main */}
       <main className={`${Styles.main} ${isDarkMode ? "dark" : ""}`}>
@@ -76,7 +76,7 @@ export default function Layout() {
           </span>
         </div>
 
-        <Outlet />
+        <Outlet context={{ isSearching }} />
       </main>
     </>
   );
