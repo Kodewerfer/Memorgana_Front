@@ -35,9 +35,15 @@
   @apply origin-left transition-all;
 }
 
+/* side action bar */
 .itemAction {
   @apply itemNav;
   @apply h-14 w-14 rounded-xl bg-zinc-600 hover:rounded-3xl;
+}
+
+.subActions {
+  @apply itemAction;
+  @apply h-12 w-12 bg-zinc-700;
 }
 
 .main {

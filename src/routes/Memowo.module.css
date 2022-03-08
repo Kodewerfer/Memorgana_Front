@@ -54,6 +54,10 @@
   composes: itemAction from "./Layout.module.css";
 }
 
+.subActions {
+  composes: subActions from "./Layout.module.css";
+}
+
 .tooltip {
   composes: tooltip from "./Layout.module.css";
 }

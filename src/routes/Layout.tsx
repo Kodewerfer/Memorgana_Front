@@ -42,9 +42,9 @@ export default function Layout() {
             isSearching ? "scale-0" : "scale-100"
           }`}
         >
+          {/* Not classy, not at all  */}
           {currentLocation === "/" ? <MemowoActions /> : ""}
         </ul>
-        {/* Not classy, not at all  */}
       </nav>
       {/*--- main */}
       <main className={`${Styles.main} ${isDarkMode ? "dark" : ""}`}>

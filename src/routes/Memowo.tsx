@@ -9,7 +9,7 @@ import IMemo from "../types/IMemo";
 import IEntry_Related from "../types/IEntry_Related";
 
 import { MdAdd } from "react-icons/md";
-import { ImSortAmountDesc } from "react-icons/im";
+import { ImSortAmountDesc, ImSortAmountAsc } from "react-icons/im";
 
 function Memowo(props: any) {
   // const { memos, fetchMemos } = useContext(MemoContext);
@@ -70,7 +70,12 @@ export function RouteActions({}) {
     <>
       <div className={`${Styles.itemAction} group`}>
         <ImSortAmountDesc size={20} />
-        <div></div>
+        <span className={`${Styles.tooltip}  group-hover:scale-100`}>
+          sort by
+        </span>
+      </div>
+      <div className={Styles.subActions}>
+        <ImSortAmountAsc size={18} />
         <span className={`${Styles.tooltip}  group-hover:scale-100`}>
           sort by
         </span>
