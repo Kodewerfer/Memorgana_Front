@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useDebugValue, useEffect } from "react";
 
 import useMemoData from "../hooks/useMemoData";
 import { useSearchStatus } from "../hooks/useSearchStatus";
@@ -10,14 +10,35 @@ import IEntry_Related from "../types/IEntry_Related";
 
 import { MdAdd } from "react-icons/md";
 import { ImSortAmountDesc, ImSortAmountAsc } from "react-icons/im";
+import Logger from "../helpers/SimpleLogger";
 
 function Memowo(props: any) {
   // const { memos, fetchMemos } = useContext(MemoContext);
   const [memos, fetcheMemos] = useMemoData();
   const { isSearching } = useSearchStatus();
 
+  // store the scroll position
+  const innerRef = useRef<HTMLDivElement>(null);
+  const scrollPositionRef = useRef<number>(0);
+
+  // scroll to previous postion after searching
+  useEffect(() => {
+    if (isSearching) return;
+    innerRef.current?.scrollTo({
+      top: scrollPositionRef.current,
+    });
+    Logger.dev(`scrolling to: ${scrollPositionRef.current}`);
+  }, [isSearching]);
+
   return (
-    <div className={Styles.inner}>
+    <div
+      className={Styles.inner}
+      ref={innerRef}
+      onScroll={() => {
+        if (isSearching) return;
+        scrollPositionRef.current = innerRef.current?.scrollTop ?? 0;
+      }}
+    >
       <div className={`${isSearching ? Styles.onSearch : Styles.list}`}>
         {memos.map((memo) => (
           <Item key={memo._id} memo={memo} />
