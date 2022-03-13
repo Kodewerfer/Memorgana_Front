@@ -1,9 +1,11 @@
 import React from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, useLocation } from "react-router-dom";
 // app routes
 import Memowo from "./routes/Memowo";
+import MemoDetail from "./routes/MemoDetail";
 import Memoboard from "./routes/Memoboard";
 import Layout from "./routes/Layout";
+import MemoModal from "./routes/MemoModal";
 import NotFound from "./routes/NotFound";
 // helpers
 import Logger, { LoggerEnvs } from "./helpers/SimpleLogger";
@@ -24,20 +26,34 @@ function App() {
 
   Logger.dev("APP rendering.");
 
+  let location = useLocation();
+  let lState = location.state as { bgLocation?: Location };
+
+  // for modal
+
   return (
-    <BrowserRouter>
-      <Routes>
+    <>
+      <Routes location={lState?.bgLocation || location}>
         {/* ---layout route */}
         <Route path="/" element={<Layout />}>
-          <Route index element={<Memowo />} />{" "}
           {/* default child component for <Outlet/> in  <Layout/> */}
+          <Route index element={<Memowo />} />
+          {/* detail view for each memo */}
+          <Route path="/:memoId" element={<MemoDetail />} />
           <Route path="/memoboard" element={<Memoboard />} />
-          <Route path="*" element={<NotFound />} />{" "}
+          <Route path="*" element={<NotFound />} />
           {/* catch all route as fallback*/}
         </Route>
         {/* ---layout route ends */}
       </Routes>
-    </BrowserRouter>
+
+      {/* Modal for memo detail */}
+      {lState?.bgLocation && (
+        <Routes>
+          <Route path="/:memoId" element={<MemoModal />} />
+        </Routes>
+      )}
+    </>
   );
 }
 

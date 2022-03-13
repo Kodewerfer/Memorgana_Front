@@ -11,15 +11,19 @@ import IEntry_Related from "../types/IEntry_Related";
 import { MdAdd } from "react-icons/md";
 import { ImSortAmountDesc, ImSortAmountAsc } from "react-icons/im";
 import Logger from "../helpers/SimpleLogger";
+import { Link, useLocation, Location } from "react-router-dom";
 
 function Memowo(props: any) {
-  // const { memos, fetchMemos } = useContext(MemoContext);
+  // const { memos, fetchMemos } = useContext(MemoContext); //deprecated
   const [memos, fetcheMemos] = useMemoData();
   const { isSearching } = useSearchStatus();
 
   // store the scroll position
   const innerRef = useRef<HTMLDivElement>(null);
   const scrollPositionRef = useRef<number>(0);
+
+  // for modal
+  let location = useLocation();
 
   // scroll to previous postion after searching
   useEffect(() => {
@@ -41,7 +45,7 @@ function Memowo(props: any) {
     >
       <div className={`${isSearching ? Styles.onSearch : Styles.list}`}>
         {memos.map((memo) => (
-          <Item key={memo._id} memo={memo} />
+          <Item key={memo._id} memo={memo} parentLocation={location} />
         ))}
       </div>
       <p className={Styles.endMark}>--- End ---</p>
@@ -50,10 +54,20 @@ function Memowo(props: any) {
 }
 
 // Memowo List Items
-function Item({ memo }: { memo: IMemo }) {
+function Item({
+  memo,
+  parentLocation,
+}: {
+  memo: IMemo;
+  parentLocation?: Location;
+}) {
   return (
     <article className={Styles.item}>
-      <h1>{memo.keyword}</h1>
+      <h1>
+        <Link to={`/${memo._id}`} state={{ bgLocation: parentLocation }}>
+          {memo.keyword}
+        </Link>
+      </h1>
       <div className={Styles.related}>
         {memo.entries_related.map((entry) => {
           return <RelatedEntries key={entry._id} entry={entry} />;
