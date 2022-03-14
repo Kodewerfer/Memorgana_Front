@@ -10,6 +10,7 @@ import NotFound from "./routes/NotFound";
 // helpers
 import Logger, { LoggerEnvs } from "./helpers/SimpleLogger";
 import { setQueryURI } from "./helpers/URIHelper";
+import useToggle from "./hooks/useToggle";
 
 const URI = "";
 const URI_DEV = "http://localhost:3004/memo";
@@ -29,13 +30,18 @@ function App() {
   let location = useLocation();
   let lState = location.state as { bgLocation?: Location };
 
+  const [isSearching, toggleSearching] = useToggle(false);
+
   // for modal
 
   return (
     <>
       <Routes location={lState?.bgLocation || location}>
         {/* ---layout route */}
-        <Route path="/" element={<Layout />}>
+        <Route
+          path="/"
+          element={<Layout appSearch={[isSearching, toggleSearching]} />}
+        >
           {/* default child component for <Outlet/> in  <Layout/> */}
           <Route index element={<Memowo />} />
           {/* detail view for each memo */}

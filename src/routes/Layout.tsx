@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import Styles from "./Layout.module.css";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useMatch,
+  useNavigate,
+  useResolvedPath,
+} from "react-router-dom";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { BiBrain } from "react-icons/bi";
 import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
@@ -10,20 +17,28 @@ import usePathNameOB from "../hooks/usePathNameOB";
 // sidebar operators
 import { RouteActions as MemowoActions } from "./Memowo";
 
-export default function Layout() {
+type LayoutProps = {
+  appSearch: [Boolean, () => void];
+};
+
+export default function Layout({ appSearch }: LayoutProps) {
   const [currentLocation, SetCurrentLocation] = useState(
     window.location.pathname
   );
   const [isDarkMode, toggleDarkMode] = useToggle(false);
-  const [isSearching, toggleSearching] = useToggle(false);
+  const [isSearching, toggleSearching] = appSearch;
 
   const Navigation = useNavigate();
   const Location = useLocation();
 
   // nav tracking
+  // for sidebar actions
   usePathNameOB(() => {
     SetCurrentLocation((prev) => {
-      return window.location.pathname;
+      const pathName = window.location.pathname;
+      console.log(pathName);
+      if (pathName === "/search") return prev;
+      return pathName;
     });
   });
 
@@ -40,13 +55,9 @@ export default function Layout() {
           <NavItem to="/" icon={<BiBrain size={50} />} text={"Memʘωʘ😊"} />
         </ul>
         {/* route spec operations eg sorting */}
-        <ul
-          className={`${Styles.routeActions} ${
-            isSearching ? "scale-0" : "scale-100"
-          }`}
-        >
+        <ul className={Styles.routeActions}>
           {/* Not classy, not at all  */}
-          {currentLocation === "/" ? <MemowoActions /> : ""}
+          {currentLocation === "/" && <MemowoActions />}
         </ul>
       </nav>
       {/*--- main */}
@@ -58,7 +69,7 @@ export default function Layout() {
             placeholder="🔎search.."
             className={`${Styles.searchBar} peer`}
             onFocus={(e) => {
-              e.preventDefault();
+              toggleSearching();
               Navigation("/search", { state: { bgLocation: Location } });
             }}
           />
@@ -93,14 +104,11 @@ function NavItem({
   icon: any;
   text: string;
 }) {
-  const currentLocation = window.location.pathname;
+  let resolved = useResolvedPath(to);
+  let match = useMatch({ path: resolved.pathname, end: true });
 
   return (
-    <div
-      className={`${
-        currentLocation === to ? Styles.itemActive : Styles.itemNav
-      } group`}
-    >
+    <div className={`${Styles.itemNav} ${match && Styles.active} group`}>
       <Link to={to}>{icon}</Link>
       <span className={`${Styles.tooltip}  group-hover:scale-100`}>{text}</span>
     </div>
