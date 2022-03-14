@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Styles from "./Layout.module.css";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { BiBrain } from "react-icons/bi";
 import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
@@ -16,6 +16,9 @@ export default function Layout() {
   );
   const [isDarkMode, toggleDarkMode] = useToggle(false);
   const [isSearching, toggleSearching] = useToggle(false);
+
+  const Navigation = useNavigate();
+  const Location = useLocation();
 
   // nav tracking
   usePathNameOB(() => {
@@ -52,13 +55,11 @@ export default function Layout() {
         <div className={`${Styles.header} ${isDarkMode ? "dark" : ""}`}>
           <input
             type="text"
-            placeholder="🔎search memos.."
+            placeholder="🔎search.."
             className={`${Styles.searchBar} peer`}
-            onFocus={() => {
-              toggleSearching();
-            }}
-            onBlur={() => {
-              toggleSearching();
+            onFocus={(e) => {
+              e.preventDefault();
+              Navigation("/search", { state: { bgLocation: Location } });
             }}
           />
           {/*---- dark mode toggle */}

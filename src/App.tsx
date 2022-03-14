@@ -5,7 +5,7 @@ import Memowo from "./routes/Memowo";
 import MemoDetail from "./routes/MemoDetail";
 import Memoboard from "./routes/Memoboard";
 import Layout from "./routes/Layout";
-import MemoModal from "./routes/MemoModal";
+import SearchModal from "./routes/Search";
 import NotFound from "./routes/NotFound";
 // helpers
 import Logger, { LoggerEnvs } from "./helpers/SimpleLogger";
@@ -50,7 +50,7 @@ function App() {
       {/* Modal for memo detail */}
       {lState?.bgLocation && (
         <Routes>
-          <Route path="/:memoId" element={<MemoModal />} />
+          <Route path="/search" element={<SearchModal />} />
         </Routes>
       )}
     </>

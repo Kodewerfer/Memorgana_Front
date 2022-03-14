@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import Styles from "./MemoModal.module.css";
 
-export default function MemoModal() {
+export default function SearchModal() {
   const { memoId } = useParams();
   const navigation = useNavigate();
 

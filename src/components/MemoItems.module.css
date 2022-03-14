@@ -1,0 +1,43 @@
+.onSearch {
+  @apply grid w-full grid-cols-3 gap-4 px-4 md:grid-cols-4 lg:grid-cols-5 
+  2xl:grid-cols-6;
+}
+
+.item {
+  @apply flex origin-top-left flex-col flex-wrap items-center rounded-3xl
+  text-zinc-200 shadow-xl;
+}
+.item h1 {
+  @apply h-12 w-full rounded-t-xl bg-zinc-600 bg-gradient-to-r
+  from-zinc-800 to-zinc-700 pt-1 text-center
+  text-2xl font-bold text-cyan-400 2xl:pl-10 2xl:text-left;
+}
+
+.related {
+  @apply flex min-h-min w-full origin-top scale-100 flex-wrap items-stretch
+   space-x-1 py-2 px-10 text-left;
+}
+
+.onSearch .related {
+  @apply h-4 scale-0;
+}
+
+.onSearch {
+  @apply grid w-full grid-cols-3 gap-4 px-4 md:grid-cols-4 lg:grid-cols-5 
+  2xl:grid-cols-6;
+}
+
+.normal {
+  @apply mb-1 max-w-xs origin-center scale-75 overflow-hidden text-ellipsis rounded-lg bg-gradient-to-tr 
+  from-indigo-600 to-pink-500 p-2 text-lg font-medium opacity-60 transition-all
+   hover:scale-110 hover:opacity-100;
+}
+
+.new {
+  @apply normal;
+  @apply from-purple-700 to-pink-400;
+}
+
+.item p {
+  @apply w-full pl-10 pb-5 text-left text-2xl font-semibold;
+}
