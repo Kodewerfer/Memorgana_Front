@@ -39,8 +39,11 @@ function App() {
           {/* default child component for <Outlet/> in  <Layout/> */}
           <Route index element={<Memowo />} />
           {/* detail view for each memo */}
-          <Route path="/:memoId" element={<MemoDetail />} />
-          <Route path="/memoboard" element={<Memoboard />} />
+          <Route path="search" element={<SearchModal />}>
+            <Route path=":params" element={<SearchModal />} />
+          </Route>
+          <Route path=":memoId" element={<MemoDetail />} />
+          <Route path="memoboard" element={<Memoboard />} />
           <Route path="*" element={<NotFound />} />
           {/* catch all route as fallback*/}
         </Route>
@@ -50,7 +53,9 @@ function App() {
       {/* Modal for memo detail */}
       {lState?.bgLocation && (
         <Routes>
-          <Route path="/search" element={<SearchModal />} />
+          <Route path="search" element={<SearchModal />}>
+            <Route path=":params" element={<SearchModal />} />
+          </Route>
         </Routes>
       )}
     </>
