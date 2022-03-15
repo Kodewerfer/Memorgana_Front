@@ -6,6 +6,7 @@ import MemoDetail from "./routes/MemoDetail";
 import Memoboard from "./routes/Memoboard";
 import Layout from "./routes/Layout";
 import SearchModal from "./routes/Search";
+import SearchResult from "./routes/SearchResults";
 import NotFound from "./routes/NotFound";
 // helpers
 import Logger, { LoggerEnvs } from "./helpers/SimpleLogger";
@@ -45,8 +46,8 @@ function App() {
           {/* default child component for <Outlet/> in  <Layout/> */}
           <Route index element={<Memowo />} />
           {/* detail view for each memo */}
-          <Route path="search" element={<SearchModal />}>
-            <Route path=":params" element={<SearchModal />} />
+          <Route path="search" element={<SearchResult />}>
+            <Route path=":params" element={<SearchResult />} />
           </Route>
           <Route path=":memoId" element={<MemoDetail />} />
           <Route path="memoboard" element={<Memoboard />} />
@@ -59,8 +60,16 @@ function App() {
       {/* Modal for memo detail */}
       {lState?.bgLocation && (
         <Routes>
-          <Route path="search" element={<SearchModal />}>
-            <Route path=":params" element={<SearchModal />} />
+          <Route
+            path="search"
+            element={<SearchModal appSearch={[isSearching, toggleSearching]} />}
+          >
+            <Route
+              path=":params"
+              element={
+                <SearchModal appSearch={[isSearching, toggleSearching]} />
+              }
+            />
           </Route>
         </Routes>
       )}

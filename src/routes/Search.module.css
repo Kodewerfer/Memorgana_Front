@@ -1,3 +1,25 @@
-.dialog {
-  @apply grid items-center;
+.modal {
+  @apply fixed z-50 h-screen w-screen bg-zinc-900/75;
+}
+
+.inner {
+  @apply flex w-full flex-wrap pt-3 pl-24;
+}
+
+.header {
+  @apply flex w-full items-center justify-center;
+}
+.searchBar {
+  @apply ml-9 h-10 min-w-min flex-1 origin-right rounded-3xl 
+  px-2 text-center text-sm font-semibold opacity-70
+  transition-all hover:rounded-md 
+  hover:opacity-100;
+}
+
+.exit {
+  @apply h-full cursor-pointer p-2 pl-4 text-white;
+}
+
+.results {
+  @apply grid w-full pt-5;
 }

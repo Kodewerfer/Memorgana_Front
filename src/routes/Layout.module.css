@@ -55,8 +55,7 @@
 }
 
 .searchBar {
-  @apply mx-9 h-10 min-w-min origin-right rounded-3xl px-2 
+  @apply mx-9 h-10 min-w-min origin-left rounded-3xl px-2
   text-center text-sm font-semibold opacity-70 transition-all
-  hover:rounded-md hover:opacity-100 
-  focus:w-full;
+  hover:rounded-md hover:opacity-100;
 }

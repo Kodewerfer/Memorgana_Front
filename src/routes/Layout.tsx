@@ -22,7 +22,7 @@ type LayoutProps = {
 };
 
 export default function Layout({ appSearch }: LayoutProps) {
-  const [currentLocation, SetCurrentLocation] = useState(
+  const [currentPathname, SetCurrentLocation] = useState(
     window.location.pathname
   );
   const [isDarkMode, toggleDarkMode] = useToggle(false);
@@ -36,7 +36,6 @@ export default function Layout({ appSearch }: LayoutProps) {
   usePathNameOB(() => {
     SetCurrentLocation((prev) => {
       const pathName = window.location.pathname;
-      console.log(pathName);
       if (pathName === "/search") return prev;
       return pathName;
     });
@@ -51,13 +50,19 @@ export default function Layout({ appSearch }: LayoutProps) {
             to="/Memoboard"
             icon={<AiOutlineDashboard size={50} />}
             text={"Memo'board🤖"}
+            CurrentPathname={currentPathname}
           />
-          <NavItem to="/" icon={<BiBrain size={50} />} text={"Memʘωʘ😊"} />
+          <NavItem
+            to="/"
+            icon={<BiBrain size={50} />}
+            text={"Memʘωʘ😊"}
+            CurrentPathname={currentPathname}
+          />
         </ul>
         {/* route spec operations eg sorting */}
         <ul className={Styles.routeActions}>
           {/* Not classy, not at all  */}
-          {currentLocation === "/" && <MemowoActions />}
+          {currentPathname === "/" && <MemowoActions />}
         </ul>
       </nav>
       {/*--- main */}
@@ -67,7 +72,7 @@ export default function Layout({ appSearch }: LayoutProps) {
           <input
             type="text"
             placeholder="🔎search.."
-            className={`${Styles.searchBar} peer`}
+            className={`${Styles.searchBar} ${isSearching && "scale-0"}`}
             onFocus={(e) => {
               toggleSearching();
               Navigation("/search", { state: { bgLocation: Location } });
@@ -78,7 +83,7 @@ export default function Layout({ appSearch }: LayoutProps) {
             onClick={() => {
               toggleDarkMode();
             }}
-            className={`${Styles.darkModeToggle} peer-focus:hidden`}
+            className={`${Styles.darkModeToggle} ${isSearching && "hidden"}`}
           >
             {isDarkMode ? (
               <MdOutlineDarkMode size={30} />
@@ -94,21 +99,27 @@ export default function Layout({ appSearch }: LayoutProps) {
   );
 }
 
+type NavItemProps = {
+  to: string;
+  icon: any;
+  text: string;
+  CurrentPathname: string; // to make sure the search modal don't interfere with active state.
+};
+
 // nav item component
 function NavItem({
   to,
   icon,
   text = "Default Text",
-}: {
-  to: string;
-  icon: any;
-  text: string;
-}) {
+  CurrentPathname,
+}: NavItemProps) {
   let resolved = useResolvedPath(to);
   let match = useMatch({ path: resolved.pathname, end: true });
 
+  const isActive = CurrentPathname === to;
+
   return (
-    <div className={`${Styles.itemNav} ${match && Styles.active} group`}>
+    <div className={`${Styles.itemNav} ${isActive && Styles.active} group`}>
       <Link to={to}>{icon}</Link>
       <span className={`${Styles.tooltip}  group-hover:scale-100`}>{text}</span>
     </div>
