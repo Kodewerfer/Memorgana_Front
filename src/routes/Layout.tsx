@@ -1,13 +1,12 @@
+/**
+ * The overall-layout component
+ * using <Outlet> from React Router
+ * App level state isSearching is passed down to child component via <Outlet> context
+ */
+
 import React, { useState } from "react";
 import Styles from "./Layout.module.css";
-import {
-  Link,
-  Outlet,
-  useLocation,
-  useMatch,
-  useNavigate,
-  useResolvedPath,
-} from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { BiBrain } from "react-icons/bi";
 import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
@@ -32,18 +31,18 @@ export default function Layout({ appSearch }: LayoutProps) {
   const Location = useLocation();
 
   // nav tracking
-  // for sidebar actions
+  // for rendering the correct sidebar actions
   usePathNameOB(() => {
     SetCurrentLocation((prev) => {
       const pathName = window.location.pathname;
-      if (pathName === "/search") return prev;
+      if (pathName === "/search") return prev; //on search modal
       return pathName;
     });
   });
 
   return (
     <>
-      {/*--- nav */}
+      {/*--- sidebar navigations */}
       <nav className={`${Styles.nav} ${isDarkMode ? "dark" : ""}`}>
         <ul className={Styles.list}>
           <NavItem
@@ -61,7 +60,6 @@ export default function Layout({ appSearch }: LayoutProps) {
         </ul>
         {/* route spec operations eg sorting */}
         <ul className={Styles.routeActions}>
-          {/* Not classy, not at all  */}
           {currentPathname === "/" && <MemowoActions />}
         </ul>
       </nav>
@@ -113,8 +111,8 @@ function NavItem({
   text = "Default Text",
   CurrentPathname,
 }: NavItemProps) {
-  let resolved = useResolvedPath(to);
-  let match = useMatch({ path: resolved.pathname, end: true });
+  // let resolved = useResolvedPath(to);
+  // let match = useMatch({ path: resolved.pathname, end: true });
 
   const isActive = CurrentPathname === to;
 

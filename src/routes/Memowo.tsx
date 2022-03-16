@@ -10,15 +10,12 @@ import { ImSortAmountDesc, ImSortAmountAsc } from "react-icons/im";
 import { Item } from "../components/MemoItems";
 
 function Memowo(props: any) {
-  // const { memos, fetchMemos } = useContext(MemoContext); //deprecated
+  // const { memos, fetchMemos } = useContext(MemoContext); // use context provider, deprecated
   const [memos, fetcheMemos] = useMemoData();
 
   // store the scroll position
   const innerRef = useRef<HTMLDivElement>(null);
   const scrollPositionRef = useRef<number>(0);
-
-  // for modal
-  // let location = useLocation();
 
   // scroll to previous postion after searching
   // useEffect(() => {
@@ -49,9 +46,7 @@ function Memowo(props: any) {
 }
 
 // operator for side bar
-export function RouteActions({}) {
-  const currentLocation = window.location.pathname;
-
+export function RouteActions() {
   return (
     <>
       <div className={`${Styles.itemAction} group`}>
