@@ -29,6 +29,8 @@ Rewrite of the old Deno project.
 │ │
 │ └───/hooks # custom hooks
 │ │
+│ └───/components
+│ │
 │ └───/helpers # app wide helper functions such as logger
 
 

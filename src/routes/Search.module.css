@@ -17,14 +17,23 @@
 }
 
 .results {
-  @apply mt-4 grid w-full grid-cols-3 gap-4 rounded-md bg-zinc-800 py-4 px-4 
-  md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6;
+  @apply mt-4 grid max-h-[85vh] w-full grid-cols-3 gap-4 overflow-auto rounded-lg 
+  bg-zinc-800 py-5 px-4 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6;
+}
+
+.results::-webkit-scrollbar {
+  @apply w-2 2xl:w-3;
+}
+
+.results::-webkit-scrollbar-thumb {
+  @apply rounded-3xl bg-zinc-600 
+  hover:bg-zinc-400;
+}
+
+.results::-webkit-scrollbar-track {
+  @apply opacity-0;
 }
 
 .exit {
   @apply h-full cursor-pointer p-2 pl-4 text-white;
-}
-
-.results {
-  @apply grid w-full pt-5;
 }
