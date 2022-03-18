@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router-dom";
 
 // as per React Router 6 spec
-type SearchStatus = { isSearching: Boolean };
+type T_SearchStatus = { isSearching: Boolean };
 export function useSearchStatus() {
-  return useOutletContext<SearchStatus>();
+  return useOutletContext<T_SearchStatus>();
 }

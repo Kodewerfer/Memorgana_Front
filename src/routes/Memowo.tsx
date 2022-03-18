@@ -1,9 +1,12 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import useMemoData from "../hooks/useMemoData";
-import { Item } from "../components/MemoItems";
+import Item from "../components/MemoItems";
 
 import Styles from "./Memowo.module.css";
 import { ImSortAmountDesc, ImSortAmountAsc } from "react-icons/im";
+import { useParams } from "react-router-dom";
+
+type T_UIRef = { [key: string]: any };
 
 function Memowo(props: any) {
   // const { memos, fetchMemos } = useContext(MemoContext); // use context provider, deprecated
@@ -22,6 +25,28 @@ function Memowo(props: any) {
   //   Logger.dev(`scrolling to: ${scrollPositionRef.current}`);
   // }, [isSearching]);
 
+  const { memoId } = useParams();
+
+  const currentUI = useRef<T_UIRef>({});
+
+  useEffect(() => {
+    scrollToTarget();
+  }, [memoId, memos]);
+
+  const scrollToTarget = () => {
+    if (!memoId) return;
+    const targetItem = currentUI?.current[memoId]?.current as HTMLElement;
+    if (!targetItem) return;
+    const innerHTML = innerRef?.current;
+    if (!innerHTML) return;
+    const yOffset = -innerHTML.getBoundingClientRect().top;
+    const y = targetItem.offsetTop + yOffset;
+    innerHTML.scrollTo({
+      behavior: "smooth",
+      top: y,
+    });
+  };
+
   return (
     <div
       className={Styles.inner}
@@ -32,9 +57,20 @@ function Memowo(props: any) {
       }}
     >
       <div className={`${Styles.list}`}>
-        {memos.map((memo) => (
-          <Item key={memo._id} memo={memo} />
-        ))}
+        {memos.map((memo, i) => {
+          const ref = React.createRef(); //kinda of a hack lol
+          const UI = (
+            <Item
+              key={memo._id}
+              memo={memo}
+              active={memoId === memo._id}
+              ref={ref}
+            />
+          );
+          currentUI.current[memo._id] = ref;
+
+          return UI;
+        })}
       </div>
       <p className={Styles.endMark}>--- End ---</p>
     </div>

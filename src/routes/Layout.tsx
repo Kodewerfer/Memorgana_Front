@@ -17,11 +17,11 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { BiBrain } from "react-icons/bi";
 import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
 
-type LayoutProps = {
+type T_LayoutProps = {
   appSearch: [Boolean, () => void];
 };
 
-export default function Layout({ appSearch }: LayoutProps) {
+export default function Layout({ appSearch }: T_LayoutProps) {
   const [currentPathname, SetCurrentLocation] = useState(
     window.location.pathname
   );
@@ -98,7 +98,7 @@ export default function Layout({ appSearch }: LayoutProps) {
   );
 }
 
-type NavItemProps = {
+type T_NavItemProps = {
   to: string;
   icon: any;
   text: string;
@@ -111,7 +111,7 @@ function NavItem({
   icon,
   text = "Default Text",
   CurrentPathname,
-}: NavItemProps) {
+}: T_NavItemProps) {
   // let resolved = useResolvedPath(to);
   // let match = useMatch({ path: resolved.pathname, end: true });
 

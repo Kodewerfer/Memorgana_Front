@@ -1,53 +1,72 @@
+import { forwardRef } from "react";
 import { MdAdd } from "react-icons/md";
+import { Link, useNavigate } from "react-router-dom";
 import IEntry_Related from "../types/IEntry_Related";
 import IMemo from "../types/IMemo";
 import Styles from "./MemoItems.module.css";
 
-type ItemProps = { memo: IMemo; useCompact?: boolean };
+type T_ItemProps = { memo: IMemo; useCompact?: boolean; active?: boolean };
 /**
  * Memowo List Items
  * @param memo data
  * @param useCompact primarily for rendering compact items in the search modal
  */
-export function Item({ memo, useCompact = false }: ItemProps) {
+export function ItemUI(
+  { memo, useCompact = false, active = false }: T_ItemProps,
+  ref: any
+) {
+  const nav = useNavigate();
+  let handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (active) return;
+    nav(`/${memo._id}`);
+  };
+
   return (
-    <article className={useCompact ? Styles.itemCompact : Styles.item}>
+    <article
+      className={useCompact ? Styles.itemCompact : Styles.item}
+      ref={ref}
+      onClick={(e) => handleClick(e)}
+    >
       <h1 className={useCompact ? Styles.titleCompact : Styles.title}>
         {memo.keyword}
       </h1>
-      {!useCompact && <Related memo={memo} />}
+      {!useCompact && <Related memo={memo} active={active} />}
       <p>{memo.description}</p>
     </article>
   );
 }
 
-type RelatedProps = { memo: IMemo };
+const Item = forwardRef(ItemUI);
 
-function Related({ memo }: RelatedProps) {
+export default Item;
+
+type T_RelatedProps = { memo: IMemo; active?: boolean };
+
+function Related({ memo, active = false }: T_RelatedProps) {
   return (
     <div className={Styles.related}>
       {memo.entries_related.map((entry) => {
         return <RelatedEntries key={entry._id} entry={entry} />;
       })}
-      <NewRelatedEntries />
+      {/* new related entry */}
+      <span
+        className={`${Styles.newRelated} group ${
+          active ? Styles.entryNormal : Styles.entryHid
+        }`}
+      >
+        <a href="">
+          <MdAdd className="group-hover:animate-ping" size={25} />
+        </a>
+      </span>
     </div>
   );
 }
 
 function RelatedEntries({ entry }: { entry: IEntry_Related }) {
   return (
-    <span className={Styles.relatedItem}>
+    <span className={`${Styles.relatedItem} ${Styles.entryNormal}`}>
       <a href="test">{entry.keyword}</a>
-    </span>
-  );
-}
-
-function NewRelatedEntries() {
-  return (
-    <span className={`${Styles.newRelated} group`}>
-      <a href="">
-        <MdAdd className="group-hover:animate-ping" size={25} />
-      </a>
     </span>
   );
 }

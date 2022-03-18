@@ -10,16 +10,16 @@ import { useParams, useNavigate } from "react-router-dom";
 // hooks
 import useMemoData from "../hooks/useMemoData";
 // components
-import { Item } from "../components/MemoItems";
+import Item from "../components/MemoItems";
 
 import Styles from "./Search.module.css";
 import { MdClose } from "react-icons/md";
 
-type SearchProps = {
+type T_SearchProps = {
   appSearch: [Boolean, () => void];
 };
 
-export default function SearchModal({ appSearch }: SearchProps) {
+export default function SearchModal({ appSearch }: T_SearchProps) {
   const { memoId } = useParams();
   const navigation = useNavigate();
   const [memos, fetcheMemos] = useMemoData();
