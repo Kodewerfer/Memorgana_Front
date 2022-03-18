@@ -18,7 +18,7 @@
 
 .results {
   @apply mt-4 grid max-h-[85vh] w-full grid-cols-3 gap-4 overflow-auto rounded-lg 
-  bg-zinc-800 py-5 px-4 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6;
+  bg-zinc-800 py-5 px-4 md:grid-cols-4 md:gap-5 lg:grid-cols-5 lg:gap-6 2xl:grid-cols-6 2xl:gap-7;
 }
 
 .results::-webkit-scrollbar {
