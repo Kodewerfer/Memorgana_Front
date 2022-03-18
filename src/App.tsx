@@ -2,7 +2,6 @@ import React from "react";
 import { Routes, Route, BrowserRouter, useLocation } from "react-router-dom";
 // app routes
 import Memowo from "./routes/Memowo";
-import MemoDetail from "./routes/MemoDetail";
 import Memoboard from "./routes/Memoboard";
 import Layout from "./routes/Layout";
 import SearchModal from "./routes/Search";
@@ -45,14 +44,15 @@ function App() {
         >
           {/* default child component for <Outlet/> in  <Layout/> */}
           <Route index element={<Memowo />} />
-          {/* detail view for each memo */}
+          <Route path="memoboard" element={<Memoboard />} />
+          {/* search/search modal */}
           <Route path="search" element={<SearchResult />}>
             <Route path=":params" element={<SearchResult />} />
           </Route>
-          <Route path=":memoId" element={<MemoDetail />} />
-          <Route path="memoboard" element={<Memoboard />} />
-          <Route path="*" element={<NotFound />} />
+          {/* detail view for each memo */}
+          <Route path=":memoId" element={<Memowo />} />
           {/* catch all route as fallback*/}
+          <Route path="*" element={<NotFound />} />
         </Route>
         {/* ---layout route ends */}
       </Routes>

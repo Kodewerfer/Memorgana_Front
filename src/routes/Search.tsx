@@ -12,8 +12,8 @@ import useMemoData from "../hooks/useMemoData";
 // components
 import { Item } from "../components/MemoItems";
 
-import { MdClose } from "react-icons/md";
 import Styles from "./Search.module.css";
+import { MdClose } from "react-icons/md";
 
 type SearchProps = {
   appSearch: [Boolean, () => void];

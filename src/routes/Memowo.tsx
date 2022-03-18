@@ -1,13 +1,9 @@
 import React, { useRef } from "react";
-
 import useMemoData from "../hooks/useMemoData";
+import { Item } from "../components/MemoItems";
 
 import Styles from "./Memowo.module.css";
-// types
-
 import { ImSortAmountDesc, ImSortAmountAsc } from "react-icons/im";
-
-import { Item } from "../components/MemoItems";
 
 function Memowo(props: any) {
   // const { memos, fetchMemos } = useContext(MemoContext); // use context provider, deprecated
