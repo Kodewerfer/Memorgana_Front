@@ -23,14 +23,14 @@
    space-x-1 py-2 px-10 text-left;
 }
 
-.normal {
-  @apply mb-1 max-w-xs origin-center scale-75 overflow-hidden text-ellipsis rounded-lg bg-gradient-to-tr 
-  from-indigo-600 to-pink-500 p-2 text-lg font-medium opacity-60 transition-all
+.relatedItem {
+  @apply mb-1 max-w-xs origin-center scale-75 overflow-hidden text-ellipsis rounded-lg 
+  bg-gradient-to-tr from-indigo-600 to-pink-500 p-2 text-lg font-medium opacity-60 transition-all
    hover:scale-110 hover:opacity-100;
 }
 
-.new {
-  @apply normal;
+.newRelated {
+  @apply relatedItem;
   @apply from-purple-700 to-pink-400;
 }
 

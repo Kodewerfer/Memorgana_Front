@@ -36,7 +36,7 @@ function Related({ memo }: RelatedProps) {
 
 function RelatedEntries({ entry }: { entry: IEntry_Related }) {
   return (
-    <span className={Styles.normal}>
+    <span className={Styles.relatedItem}>
       <a href="test">{entry.keyword}</a>
     </span>
   );
@@ -44,7 +44,7 @@ function RelatedEntries({ entry }: { entry: IEntry_Related }) {
 
 function NewRelatedEntries() {
   return (
-    <span className={`${Styles.new} group`}>
+    <span className={`${Styles.newRelated} group`}>
       <a href="">
         <MdAdd className="group-hover:animate-ping" size={25} />
       </a>
