@@ -16,20 +16,19 @@ import Styles from "./Search.module.css";
 import { MdClose } from "react-icons/md";
 
 type T_SearchProps = {
-  appSearch: [Boolean, () => void];
+  appSearchStatus: Boolean;
 };
 
-export default function SearchModal({ appSearch }: T_SearchProps) {
+export default function SearchModal({ appSearchStatus }: T_SearchProps) {
   const { memoId } = useParams();
   const navigation = useNavigate();
   const [memos, fetcheMemos] = useMemoData();
 
-  const [, toggleSearching] = appSearch;
+  const isSearching = appSearchStatus;
 
-  function onDismiss() {
-    toggleSearching();
+  const onDismiss = () => {
     return navigation(-1);
-  }
+  };
 
   return (
     <div className={Styles.modal} onClick={() => onDismiss()}>

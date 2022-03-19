@@ -3,11 +3,11 @@ import { useDebugValue, useState } from "react";
 export default function useToggle(valDefault: Boolean) {
   const [value, setVal] = useState(valDefault);
   useDebugValue(value)
-  function toggleValue() {
+  function toggleValue(val?: boolean) {
     setVal(prev => {
-      return !prev;
+      typeof val === "boolean" ? prev = val : prev = !prev;
+      return prev;
     })
-    return;
   }
 
   return [value, toggleValue] as const

@@ -1,5 +1,11 @@
 import React from "react";
-import { Routes, Route, BrowserRouter, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+  useMatch,
+  useResolvedPath,
+} from "react-router-dom";
 // app routes
 import Memowo from "./routes/Memowo";
 import Memoboard from "./routes/Memoboard";
@@ -11,37 +17,43 @@ import NotFound from "./routes/NotFound";
 import Logger, { LoggerEnvs } from "./helpers/SimpleLogger";
 import { setQueryURI } from "./helpers/URIHelper";
 import useToggle from "./hooks/useToggle";
+import usePathNameOB from "./hooks/usePathNameOB";
+import { useEffect } from "react";
 
 const URI = "";
 const URI_DEV = "http://localhost:3004/memo";
 
 let fetchURI = URI;
 
-function App() {
-  if (window?.location?.hostname === "localhost") {
-    Logger.currentEnv = LoggerEnvs.dev;
-    fetchURI = URI_DEV;
-    setQueryURI(fetchURI);
-    Logger.dev("Enviroment is set to dev");
-  }
+if (window?.location?.hostname === "localhost") {
+  Logger.currentEnv = LoggerEnvs.dev;
+  fetchURI = URI_DEV;
+  setQueryURI(fetchURI);
+  Logger.dev("Enviroment is set to dev");
+}
 
+function App() {
   Logger.dev("APP rendering.");
 
   let location = useLocation();
   let lState = location.state as { bgLocation?: Location };
 
-  const [isSearching, toggleSearching] = useToggle(false);
+  const [isSearching, toggleAppSearch] = useToggle(false);
 
-  // for modal
+  const searchPath = useResolvedPath("/search");
+  let isCurrentlySearching = useMatch({ path: searchPath.pathname, end: true });
+  useEffect(() => {
+    if (isCurrentlySearching) {
+      return toggleAppSearch(true);
+    }
+    return toggleAppSearch(false);
+  });
 
   return (
     <>
       <Routes location={lState?.bgLocation || location}>
         {/* ---layout route */}
-        <Route
-          path="/"
-          element={<Layout appSearch={[isSearching, toggleSearching]} />}
-        >
+        <Route path="/" element={<Layout appSearchStatus={isSearching} />}>
           {/* default child component for <Outlet/> in  <Layout/> */}
           <Route index element={<Memowo />} />
           <Route path="memoboard" element={<Memoboard />} />
@@ -62,13 +74,11 @@ function App() {
         <Routes>
           <Route
             path="search"
-            element={<SearchModal appSearch={[isSearching, toggleSearching]} />}
+            element={<SearchModal appSearchStatus={isSearching} />}
           >
             <Route
               path=":params"
-              element={
-                <SearchModal appSearch={[isSearching, toggleSearching]} />
-              }
+              element={<SearchModal appSearchStatus={isSearching} />}
             />
           </Route>
         </Routes>

@@ -12,34 +12,29 @@ import usePathNameOB from "../hooks/usePathNameOB";
 import { RouteActions as MemowoActions } from "./Memowo";
 
 import Styles from "./Layout.module.css";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useMatch,
+  useNavigate,
+  useResolvedPath,
+} from "react-router-dom";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { BiBrain } from "react-icons/bi";
 import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
+import Logger from "../helpers/SimpleLogger";
 
 type T_LayoutProps = {
-  appSearch: [Boolean, () => void];
+  appSearchStatus: Boolean;
 };
 
-export default function Layout({ appSearch }: T_LayoutProps) {
-  const [currentPathname, SetCurrentLocation] = useState(
-    window.location.pathname
-  );
+export default function Layout({ appSearchStatus: appSearch }: T_LayoutProps) {
   const [isDarkMode, toggleDarkMode] = useToggle(false);
-  const [isSearching, toggleSearching] = appSearch;
+  const isSearching = appSearch;
 
   const Navigation = useNavigate();
   const Location = useLocation();
-
-  // nav tracking
-  // for rendering the correct sidebar actions
-  usePathNameOB(() => {
-    SetCurrentLocation((prev) => {
-      const pathName = window.location.pathname;
-      if (pathName === "/search") return prev; //on search modal
-      return pathName;
-    });
-  });
 
   return (
     <>
@@ -50,18 +45,12 @@ export default function Layout({ appSearch }: T_LayoutProps) {
             to="/Memoboard"
             icon={<AiOutlineDashboard size={50} />}
             text={"Memo'board🤖"}
-            CurrentPathname={currentPathname}
           />
-          <NavItem
-            to="/"
-            icon={<BiBrain size={50} />}
-            text={"Memʘωʘ😊"}
-            CurrentPathname={currentPathname}
-          />
+          <NavItem to="/" icon={<BiBrain size={50} />} text={"Memʘωʘ😊"} />
         </ul>
         {/* route spec operations eg sorting */}
         <ul className={Styles.routeActions}>
-          {currentPathname === "/" && <MemowoActions />}
+          {/* {currentPathname === "/" && <MemowoActions />} */}
         </ul>
       </nav>
       {/*--- main */}
@@ -73,7 +62,6 @@ export default function Layout({ appSearch }: T_LayoutProps) {
             placeholder="🔎search.."
             className={`${Styles.searchBar} ${isSearching && "scale-0"}`}
             onFocus={(e) => {
-              toggleSearching();
               Navigation("/search", { state: { bgLocation: Location } });
             }}
           />
@@ -102,23 +90,15 @@ type T_NavItemProps = {
   to: string;
   icon: any;
   text: string;
-  CurrentPathname: string; // to make sure the search modal don't interfere with active state.
 };
 
 // nav item component
-function NavItem({
-  to,
-  icon,
-  text = "Default Text",
-  CurrentPathname,
-}: T_NavItemProps) {
-  // let resolved = useResolvedPath(to);
-  // let match = useMatch({ path: resolved.pathname, end: true });
-
-  const isActive = CurrentPathname === to;
+function NavItem({ to, icon, text = "Default Text" }: T_NavItemProps) {
+  let resolved = useResolvedPath(to);
+  let match = useMatch({ path: resolved.pathname, end: true });
 
   return (
-    <div className={`${Styles.itemNav} ${isActive && Styles.active} group`}>
+    <div className={`${Styles.itemNav} ${match && Styles.active} group`}>
       <Link to={to}>{icon}</Link>
       <span className={`${Styles.tooltip}  group-hover:scale-100`}>{text}</span>
     </div>
