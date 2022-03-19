@@ -5,12 +5,13 @@ import {
   useLocation,
   useMatch,
   useResolvedPath,
+  Navigate,
 } from "react-router-dom";
 // app routes
 import Memowo from "./routes/Memowo";
 import Memoboard from "./routes/Memoboard";
 import Layout from "./routes/Layout";
-import SearchModal from "./routes/Search";
+import SearchModal from "./routes/SearchModal";
 import SearchResult from "./routes/SearchResults";
 import NotFound from "./routes/NotFound";
 // helpers
@@ -55,14 +56,11 @@ function App() {
         {/* ---layout route */}
         <Route path="/" element={<Layout appSearchStatus={isSearching} />}>
           {/* default child component for <Outlet/> in  <Layout/> */}
-          <Route index element={<Memowo />} />
+          <Route index element={<Navigate to={"/memo"} />} />
+          <Route path="memo" element={<Memowo />} />
           <Route path="memoboard" element={<Memoboard />} />
           {/* search/search modal */}
-          <Route path="search" element={<SearchResult />}>
-            <Route path=":params" element={<SearchResult />} />
-          </Route>
-          {/* detail view for each memo */}
-          <Route path=":memoId" element={<Memowo />} />
+          <Route path="search" element={<SearchResult />} />
           {/* catch all route as fallback*/}
           <Route path="*" element={<NotFound />} />
         </Route>
@@ -72,15 +70,7 @@ function App() {
       {/* Modal for memo detail */}
       {lState?.bgLocation && (
         <Routes>
-          <Route
-            path="search"
-            element={<SearchModal appSearchStatus={isSearching} />}
-          >
-            <Route
-              path=":params"
-              element={<SearchModal appSearchStatus={isSearching} />}
-            />
-          </Route>
+          <Route path="search" element={<SearchModal />} />
         </Routes>
       )}
     </>

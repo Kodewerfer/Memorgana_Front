@@ -4,7 +4,7 @@ import Item from "../components/MemoItems";
 
 import Styles from "./Memowo.module.css";
 import { ImSortAmountDesc, ImSortAmountAsc } from "react-icons/im";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 type T_UIRef = { [key: string]: any };
 
@@ -25,17 +25,18 @@ function Memowo(props: any) {
   //   Logger.dev(`scrolling to: ${scrollPositionRef.current}`);
   // }, [isSearching]);
 
-  const { memoId } = useParams();
+  const [memoParams] = useSearchParams();
+  const memoID = memoParams.get("ID");
 
   const currentUI = useRef<T_UIRef>({});
 
   useEffect(() => {
     scrollToTarget();
-  }, [memoId, memos]);
+  }, [memoID, memos]);
 
   const scrollToTarget = () => {
-    if (!memoId) return;
-    const targetItem = currentUI?.current[memoId]?.current as HTMLElement;
+    if (!memoID) return;
+    const targetItem = currentUI?.current[memoID]?.current as HTMLElement;
     if (!targetItem) return;
     const innerHTML = innerRef?.current;
     if (!innerHTML) return;
@@ -63,7 +64,7 @@ function Memowo(props: any) {
             <Item
               key={memo._id}
               memo={memo}
-              active={memoId === memo._id}
+              active={memoID === memo._id}
               ref={ref}
             />
           );

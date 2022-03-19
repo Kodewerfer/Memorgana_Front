@@ -46,7 +46,7 @@ export default function Layout({ appSearchStatus: appSearch }: T_LayoutProps) {
             icon={<AiOutlineDashboard size={50} />}
             text={"Memo'board🤖"}
           />
-          <NavItem to="/" icon={<BiBrain size={50} />} text={"Memʘωʘ😊"} />
+          <NavItem to="/memo" icon={<BiBrain size={50} />} text={"Memʘωʘ😊"} />
         </ul>
         {/* route spec operations eg sorting */}
         <ul className={Styles.routeActions}>

@@ -19,7 +19,7 @@ export function ItemUI(
   let handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (active) return;
-    nav(`/${memo._id}`);
+    nav(`/memo/?ID=${memo._id}`);
   };
 
   return (
