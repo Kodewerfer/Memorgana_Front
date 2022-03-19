@@ -15,16 +15,9 @@ import Item from "../components/MemoItems";
 import Styles from "./Search.module.css";
 import { MdClose } from "react-icons/md";
 
-type T_SearchProps = {
-  appSearchStatus: Boolean;
-};
-
-export default function SearchModal({ appSearchStatus }: T_SearchProps) {
-  const { memoId } = useParams();
+export default function SearchModal() {
   const navigation = useNavigate();
   const [memos, fetcheMemos] = useMemoData();
-
-  const isSearching = appSearchStatus;
 
   const onDismiss = () => {
     return navigation(-1);
