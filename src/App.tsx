@@ -34,8 +34,6 @@ if (window?.location?.hostname === "localhost") {
 }
 
 function App() {
-  Logger.dev("APP rendering.");
-
   let location = useLocation();
   let lState = location.state as { bgLocation?: Location };
 
@@ -50,6 +48,7 @@ function App() {
     return toggleAppSearch(false);
   });
 
+  Logger.dev("APP rendering.");
   return (
     <>
       <Routes location={lState?.bgLocation || location}>

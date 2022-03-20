@@ -1,10 +1,10 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import useMemoData from "../hooks/useMemoData";
 import Item from "../components/MemoItems";
 
 import Styles from "./Memowo.module.css";
 import { ImSortAmountDesc, ImSortAmountAsc } from "react-icons/im";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 
 type T_UIRef = { [key: string]: any };
 
@@ -16,29 +16,28 @@ function Memowo(props: any) {
   const innerRef = useRef<HTMLDivElement>(null);
   const scrollPositionRef = useRef<number>(0);
 
-  // scroll to previous postion after searching
-  // useEffect(() => {
-  //   if (isSearching) return;
-  //   innerRef.current?.scrollTo({
-  //     top: scrollPositionRef.current,
-  //   });
-  //   Logger.dev(`scrolling to: ${scrollPositionRef.current}`);
-  // }, [isSearching]);
-
   const [memoParams] = useSearchParams();
   const memoID = memoParams.get("ID");
 
   const currentUI = useRef<T_UIRef>({});
 
+  const lState = useLocation().state as { bgLocation?: Location };
   useEffect(() => {
+    if (lState?.bgLocation) return; // modal
     scrollToTarget();
   }, [memoID, memos]);
 
-  const scrollToTarget = () => {
-    if (!memoID) return;
+  const scrollToTarget = useCallback(() => {
+    const innerHTML = innerRef?.current;
+    if (!memoID) {
+      innerHTML?.scrollTo({
+        behavior: "smooth",
+        top: 0,
+      });
+      return;
+    }
     const targetItem = currentUI?.current[memoID]?.current as HTMLElement;
     if (!targetItem) return;
-    const innerHTML = innerRef?.current;
     if (!innerHTML) return;
     const yOffset = -innerHTML.getBoundingClientRect().top;
     const y = targetItem.offsetTop + yOffset;
@@ -46,7 +45,7 @@ function Memowo(props: any) {
       behavior: "smooth",
       top: y,
     });
-  };
+  }, [memoID]);
 
   return (
     <div
