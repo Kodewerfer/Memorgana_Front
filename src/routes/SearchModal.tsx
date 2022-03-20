@@ -6,7 +6,7 @@
  */
 
 import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 // hooks
 import useMemoData from "../hooks/useMemoData";
 // components
@@ -14,10 +14,16 @@ import Item from "../components/MemoItems";
 
 import Styles from "./Search.module.css";
 import { MdClose } from "react-icons/md";
+import Logger from "../helpers/SimpleLogger";
 
 export default function SearchModal() {
   const navigation = useNavigate();
   const [memos, fetcheMemos] = useMemoData();
+
+  // get the "modal background", if applies.
+  const lState = useLocation().state as { bgLocation?: Location };
+  Logger.dev("%cSearch modal lState: ", "green");
+  Logger.dev(lState?.bgLocation);
 
   const onDismiss = () => {
     return navigation(-1);
