@@ -30,7 +30,7 @@ if (window?.location?.hostname === "localhost") {
   Logger.currentEnv = LoggerEnvs.dev;
   fetchURI = URI_DEV;
   setQueryURI(fetchURI);
-  Logger.dev("Enviroment is set to dev");
+  Logger.dev("%cEnviroment is set to dev", "grey");
 }
 
 function App() {
@@ -48,7 +48,7 @@ function App() {
     return toggleAppSearch(false);
   });
 
-  Logger.dev("APP rendering.");
+  Logger.dev("%cAPP rendering.", "grey");
   return (
     <>
       <Routes location={lState?.bgLocation || location}>
