@@ -13,10 +13,10 @@ import useMemoData from "../hooks/useMemoData";
 import Item from "../components/MemoItems";
 
 import ILocationState from "../types/ILocationSate";
+import Logger from "../helpers/SimpleLogger";
 
 import Styles from "./Search.module.css";
 import { MdClose } from "react-icons/md";
-import Logger from "../helpers/SimpleLogger";
 
 export default function SearchModal() {
   const [memos, fetcheMemos] = useMemoData();

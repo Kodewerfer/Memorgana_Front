@@ -4,7 +4,7 @@ import Item from "../components/MemoItems";
 
 import Styles from "./Memowo.module.css";
 import { ImSortAmountDesc, ImSortAmountAsc } from "react-icons/im";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import ILocationState from "../types/ILocationSate";
 
 type TUIRef = { [key: string]: any };

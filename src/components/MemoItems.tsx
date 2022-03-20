@@ -1,9 +1,10 @@
-import { forwardRef } from "react";
-import { MdAdd } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import IEntry_Related from "../types/IEntry_Related";
 import IMemo from "../types/IMemo";
+
 import Styles from "./MemoItems.module.css";
+import { forwardRef } from "react";
+import { MdAdd } from "react-icons/md";
 
 type TItemProps = { memo: IMemo; useCompact?: boolean; active?: boolean };
 /**

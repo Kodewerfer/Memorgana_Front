@@ -18,7 +18,6 @@ import NotFound from "./routes/NotFound";
 import Logger, { LoggerEnvs } from "./helpers/SimpleLogger";
 import { setQueryURI } from "./helpers/URIHelper";
 import useToggle from "./hooks/useToggle";
-import usePathNameOB from "./hooks/usePathNameOB";
 import { useEffect } from "react";
 import ILocationState from "./types/ILocationSate";
 

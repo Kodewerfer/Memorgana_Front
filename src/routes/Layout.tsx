@@ -7,7 +7,6 @@
 import React, { useState } from "react";
 // custom hooks
 import useToggle from "../hooks/useToggle";
-import usePathNameOB from "../hooks/usePathNameOB";
 // sidebar operators
 import { RouteActions as MemowoActions } from "./Memowo";
 
@@ -20,10 +19,11 @@ import {
   useNavigate,
   useResolvedPath,
 } from "react-router-dom";
+import Logger from "../helpers/SimpleLogger";
+
+import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { BiBrain } from "react-icons/bi";
-import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
-import Logger from "../helpers/SimpleLogger";
 
 type TLayoutProps = {
   appSearchStatus: Boolean;
