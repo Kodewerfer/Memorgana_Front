@@ -7,7 +7,7 @@ import { ImSortAmountDesc, ImSortAmountAsc } from "react-icons/im";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import ILocationState from "../types/ILocationSate";
 
-type T_UIRef = { [key: string]: any };
+type TUIRef = { [key: string]: any };
 
 function Memowo(props: any) {
   // const { memos, fetchMemos } = useContext(MemoContext); // use context provider, deprecated
@@ -20,7 +20,7 @@ function Memowo(props: any) {
   const [memoParams] = useSearchParams();
   const memoID = memoParams.get("ID");
 
-  const currentUI = useRef<T_UIRef>({});
+  const currentUI = useRef<TUIRef>({});
 
   const lState = useLocation().state as ILocationState;
   useEffect(() => {

@@ -25,11 +25,11 @@ import { BiBrain } from "react-icons/bi";
 import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
 import Logger from "../helpers/SimpleLogger";
 
-type T_LayoutProps = {
+type TLayoutProps = {
   appSearchStatus: Boolean;
 };
 
-export default function Layout({ appSearchStatus: appSearch }: T_LayoutProps) {
+export default function Layout({ appSearchStatus: appSearch }: TLayoutProps) {
   const [isDarkMode, toggleDarkMode] = useToggle(false);
   const isSearching = appSearch;
 
@@ -86,14 +86,14 @@ export default function Layout({ appSearchStatus: appSearch }: T_LayoutProps) {
   );
 }
 
-type T_NavItemProps = {
+type TNavItemProps = {
   to: string;
   icon: any;
   text: string;
 };
 
 // nav item component
-function NavItem({ to, icon, text = "Default Text" }: T_NavItemProps) {
+function NavItem({ to, icon, text = "Default Text" }: TNavItemProps) {
   let resolved = useResolvedPath(to);
   let match = useMatch({ path: resolved.pathname, end: true });
 

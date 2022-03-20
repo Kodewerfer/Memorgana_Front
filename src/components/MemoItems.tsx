@@ -5,14 +5,14 @@ import IEntry_Related from "../types/IEntry_Related";
 import IMemo from "../types/IMemo";
 import Styles from "./MemoItems.module.css";
 
-type T_ItemProps = { memo: IMemo; useCompact?: boolean; active?: boolean };
+type TItemProps = { memo: IMemo; useCompact?: boolean; active?: boolean };
 /**
  * Memowo List Items
  * @param memo data
  * @param useCompact primarily for rendering compact items in the search modal
  */
 export function ItemUI(
-  { memo, useCompact = false, active = false }: T_ItemProps,
+  { memo, useCompact = false, active = false }: TItemProps,
   ref: any
 ) {
   const navigate = useNavigate();
@@ -41,9 +41,9 @@ const Item = forwardRef(ItemUI);
 
 export default Item;
 
-type T_RelatedProps = { memo: IMemo; active?: boolean };
+type TRelatedProps = { memo: IMemo; active?: boolean };
 
-function Related({ memo, active = false }: T_RelatedProps) {
+function Related({ memo, active = false }: TRelatedProps) {
   const navigate = useNavigate();
   const currentLocation = useLocation();
   return (
