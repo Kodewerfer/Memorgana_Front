@@ -43,14 +43,18 @@ class SimpleLogger {
     return SimpleLogger.uInstance;
   }
 
-  dev(log: any) {
+  dev(log: any, color?: string) {
     if (this.currentEnv !== LoggerEnvs.dev) {
       return;
     }
-    return console.log(log);
+
+    if (!color) return console.log(log);
+
+    return console.log(log, `color:${color}`);
   }
-  log(log: any) {
-    return console.info(log);
+  log(log: any, color?: string) {
+    if (!color) return console.log(log);
+    return console.info(log, `color:${color}`);
   }
 
 
