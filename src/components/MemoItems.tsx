@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { MdAdd } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import IEntry_Related from "../types/IEntry_Related";
 import IMemo from "../types/IMemo";
 import Styles from "./MemoItems.module.css";
@@ -15,11 +15,11 @@ export function ItemUI(
   { memo, useCompact = false, active = false }: T_ItemProps,
   ref: any
 ) {
-  const nav = useNavigate();
+  const navigate = useNavigate();
   let handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (active) return;
-    nav(`/memo/?ID=${memo._id}`);
+    navigate(`/memo/?ID=${memo._id}`);
   };
 
   return (
@@ -44,6 +44,8 @@ export default Item;
 type T_RelatedProps = { memo: IMemo; active?: boolean };
 
 function Related({ memo, active = false }: T_RelatedProps) {
+  const navigate = useNavigate();
+  const currentLocation = useLocation();
   return (
     <div className={Styles.related}>
       {memo.entries_related.map((entry) => {
@@ -51,13 +53,16 @@ function Related({ memo, active = false }: T_RelatedProps) {
       })}
       {/* new related entry */}
       <span
+        onClick={() => {
+          navigate("/search", {
+            state: { bgLocation: currentLocation, context: "relatedEntry" },
+          });
+        }}
         className={`${Styles.newRelated} group ${
           active ? Styles.entryNormal : Styles.entryHid
         }`}
       >
-        <a href="">
-          <MdAdd className="group-hover:animate-ping" size={25} />
-        </a>
+        <MdAdd className="group-hover:animate-ping" size={25} />
       </span>
     </div>
   );
@@ -66,7 +71,7 @@ function Related({ memo, active = false }: T_RelatedProps) {
 function RelatedEntries({ entry }: { entry: IEntry_Related }) {
   return (
     <span className={`${Styles.relatedItem} ${Styles.entryNormal}`}>
-      <a href="test">{entry.keyword}</a>
+      <Link to={`/memo/?ID=${entry._id}`}>{entry.keyword}</Link>
     </span>
   );
 }

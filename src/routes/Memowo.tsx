@@ -5,6 +5,7 @@ import Item from "../components/MemoItems";
 import Styles from "./Memowo.module.css";
 import { ImSortAmountDesc, ImSortAmountAsc } from "react-icons/im";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import ILocationState from "../types/ILocationSate";
 
 type T_UIRef = { [key: string]: any };
 
@@ -21,7 +22,7 @@ function Memowo(props: any) {
 
   const currentUI = useRef<T_UIRef>({});
 
-  const lState = useLocation().state as { bgLocation?: Location };
+  const lState = useLocation().state as ILocationState;
   useEffect(() => {
     if (lState?.bgLocation) return; // modal
     scrollToTarget();

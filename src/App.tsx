@@ -20,6 +20,7 @@ import { setQueryURI } from "./helpers/URIHelper";
 import useToggle from "./hooks/useToggle";
 import usePathNameOB from "./hooks/usePathNameOB";
 import { useEffect } from "react";
+import ILocationState from "./types/ILocationSate";
 
 const URI = "";
 const URI_DEV = "http://localhost:3004/memo";
@@ -35,7 +36,7 @@ if (window?.location?.hostname === "localhost") {
 
 function App() {
   let location = useLocation();
-  let lState = location.state as { bgLocation?: Location };
+  let lState = location.state as ILocationState;
 
   const [isSearching, toggleAppSearch] = useToggle(false);
 

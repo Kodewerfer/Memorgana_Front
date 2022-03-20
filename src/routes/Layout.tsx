@@ -34,7 +34,7 @@ export default function Layout({ appSearchStatus: appSearch }: T_LayoutProps) {
   const isSearching = appSearch;
 
   const Navigation = useNavigate();
-  const Location = useLocation();
+  const currentLocation = useLocation();
 
   return (
     <>
@@ -62,7 +62,7 @@ export default function Layout({ appSearchStatus: appSearch }: T_LayoutProps) {
             placeholder="🔎search.."
             className={`${Styles.searchBar} ${isSearching && "scale-0"}`}
             onFocus={(e) => {
-              Navigation("/search", { state: { bgLocation: Location } });
+              Navigation("/search", { state: { bgLocation: currentLocation } });
             }}
           />
           {/*---- dark mode toggle */}
