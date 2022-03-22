@@ -14,7 +14,7 @@ function Memowo(props: any) {
   const [memos, fetcheMemos] = useMemoData();
 
   // store the scroll position
-  const innerRef = useRef<HTMLDivElement>(null);
+  const refInner = useRef<HTMLDivElement>(null);
   const scrollPositionRef = useRef<number>(0);
 
   const [memoParams] = useSearchParams();
@@ -29,7 +29,7 @@ function Memowo(props: any) {
   }, [memoID, memos]);
 
   const scrollToTarget = useCallback(() => {
-    const innerHTML = innerRef?.current;
+    const innerHTML = refInner?.current;
     if (!memoID) {
       innerHTML?.scrollTo({
         behavior: "smooth",
@@ -51,10 +51,10 @@ function Memowo(props: any) {
   return (
     <div
       className={Styles.inner}
-      ref={innerRef}
+      ref={refInner}
       onScroll={() => {
         // if (isSearching) return;
-        scrollPositionRef.current = innerRef.current?.scrollTop ?? 0;
+        scrollPositionRef.current = refInner.current?.scrollTop ?? 0;
       }}
     >
       <div className={`${Styles.list}`}>

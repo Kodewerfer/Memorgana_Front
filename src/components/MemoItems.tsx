@@ -56,7 +56,7 @@ function Related({ memo, active = false }: TRelatedProps) {
       <span
         onClick={() => {
           navigate("/search", {
-            state: { bgLocation: currentLocation, context: "relatedEntry" },
+            state: { bgLocation: currentLocation, context: "RelatedEntry" },
           });
         }}
         className={`${Styles.newRelated} group ${

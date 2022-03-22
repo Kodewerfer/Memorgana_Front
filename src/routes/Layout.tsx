@@ -24,17 +24,27 @@ import Logger from "../helpers/SimpleLogger";
 import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { BiBrain } from "react-icons/bi";
+import useKeybind from "../hooks/useKeybind";
 
 type TLayoutProps = {
-  appSearchStatus: Boolean;
+  appSearching: Boolean;
 };
 
-export default function Layout({ appSearchStatus: appSearch }: TLayoutProps) {
+export default function Layout({ appSearching }: TLayoutProps) {
+  Logger.dev("%cLayout rendering", "pink");
   const [isDarkMode, toggleDarkMode] = useToggle(false);
-  const isSearching = appSearch;
+  const isSearching = appSearching;
 
   const Navigation = useNavigate();
   const currentLocation = useLocation();
+
+  useKeybind((e: KeyboardEvent) => {
+    if (e.code === "KeyK" && e.ctrlKey === true) {
+      e.preventDefault();
+      if (isSearching) return;
+      Navigation("/search", { state: { bgLocation: currentLocation } });
+    }
+  });
 
   return (
     <>
@@ -59,7 +69,7 @@ export default function Layout({ appSearchStatus: appSearch }: TLayoutProps) {
         <div className={`${Styles.header} ${isDarkMode ? "dark" : ""}`}>
           <input
             type="text"
-            placeholder="🔎search.."
+            placeholder="🔎 Ctrl+K"
             className={`${Styles.searchBar} ${isSearching && "scale-0"}`}
             onFocus={(e) => {
               Navigation("/search", { state: { bgLocation: currentLocation } });

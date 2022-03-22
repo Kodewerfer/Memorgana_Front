@@ -53,7 +53,7 @@ function App() {
     <>
       <Routes location={lState?.bgLocation || location}>
         {/* ---layout route */}
-        <Route path="/" element={<Layout appSearchStatus={isSearching} />}>
+        <Route path="/" element={<Layout appSearching={isSearching} />}>
           {/* default child component for <Outlet/> in  <Layout/> */}
           <Route index element={<Navigate to={"/memo"} />} />
           <Route path="memo" element={<Memowo />} />
