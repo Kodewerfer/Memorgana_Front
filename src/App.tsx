@@ -48,7 +48,7 @@ function App() {
     return toggleAppSearch(false);
   });
 
-  Logger.dev("%cAPP rendering.", "grey");
+  // Logger.dev("%cAPP rendering.", "grey");
   return (
     <>
       <Routes location={lState?.bgLocation || location}>

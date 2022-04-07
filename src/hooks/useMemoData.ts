@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, useDebugValue, } from "react";
+import { useEffect, useState, useDebugValue, useCallback, } from "react";
 import Logger from "../helpers/SimpleLogger";
 import { getQueryURI } from '../helpers/URIHelper';
 import IMemo from "../types/IMemo";
@@ -25,12 +25,12 @@ export default function useMemoData() {
   }, [])
 
 
-  function fetchMemos() {
+  const fetchMemos = useCallback(() => {
     queryMemo((data: any) => {
       memosRef = data;
       setMemos(data);
     });
-  }
+  }, [setMemos]);
 
   return [memos, fetchMemos] as const; //ts-2339
 }

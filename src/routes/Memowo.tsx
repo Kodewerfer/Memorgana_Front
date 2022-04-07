@@ -6,6 +6,7 @@ import Styles from "./Memowo.module.css";
 import { ImSortAmountDesc, ImSortAmountAsc } from "react-icons/im";
 import { useLocation, useSearchParams } from "react-router-dom";
 import ILocationState from "../types/ILocationSate";
+import Logger from "../helpers/SimpleLogger";
 
 type TUIRef = { [key: string]: any };
 
@@ -27,6 +28,14 @@ function Memowo(props: any) {
     if (lState?.bgLocation) return; // modal
     scrollToTarget();
   }, [memoID, memos]);
+
+  const patchMemoItem = useCallback(
+    (id: string) => {
+      Logger.dev(`Patching ${id}`);
+      // fetcheMemos();
+    },
+    [memos]
+  );
 
   const scrollToTarget = useCallback(() => {
     const innerHTML = refInner?.current;
@@ -64,7 +73,7 @@ function Memowo(props: any) {
             <Item
               key={memo._id}
               memo={memo}
-              active={memoID === memo._id}
+              isAactive={memoID === memo._id}
               ref={ref}
             />
           );

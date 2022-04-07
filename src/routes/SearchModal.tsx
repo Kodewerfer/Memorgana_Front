@@ -21,7 +21,6 @@ import { SiSpinrilla } from "react-icons/si";
 import useDebounce from "../hooks/useDebounce";
 import useKeybind from "../hooks/useKeybind";
 import filterData from "../helpers/filterData";
-import { lstat } from "fs/promises";
 
 export default function SearchModal() {
   const [searchInput, setSearchInput] = useState("");
@@ -81,6 +80,7 @@ export default function SearchModal() {
     }
   });
 
+  Logger.dev("%cSearch rendering", "grey");
   return (
     <div className={Styles.modal} onClick={() => onDismiss()}>
       <div className={Styles.inner} onClick={(e) => e.stopPropagation()}>

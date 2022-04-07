@@ -1,16 +1,27 @@
+[contenteditable] {
+  outline: 0px solid transparent;
+}
 .item {
   @apply flex origin-top-left flex-col flex-wrap items-center rounded-3xl
   text-zinc-200 shadow-xl;
 }
 .title {
-  @apply h-12 w-full rounded-t-xl bg-zinc-600 bg-gradient-to-r
-  from-zinc-800 to-zinc-700 pt-1 text-center
+  @apply flex h-12 w-full items-center rounded-t-xl
+  bg-zinc-600 bg-gradient-to-r from-zinc-800 to-zinc-700 text-center
   text-2xl font-bold text-cyan-400 2xl:pl-10 2xl:text-left;
+}
+
+.item input {
+  @apply w-fit border-0 bg-zinc-600/0 outline-none;
 }
 
 .itemCompact {
   @apply item;
   @apply text-sm;
+}
+
+.itemCompact input {
+  @apply cursor-pointer;
 }
 
 .titleCompact {

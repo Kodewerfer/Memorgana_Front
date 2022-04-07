@@ -39,10 +39,15 @@ export default function Layout({ appSearching }: TLayoutProps) {
   const currentLocation = useLocation();
 
   useKeybind((e: KeyboardEvent) => {
+    // hijack search
     if (e.code === "KeyK" && e.ctrlKey === true) {
       e.preventDefault();
       if (isSearching) return;
       Navigation("/search", { state: { bgLocation: currentLocation } });
+    }
+    // hijack save (actual usage in MemoItems)
+    if (e.code === "KeyS" && e.ctrlKey === true) {
+      e.preventDefault();
     }
   });
 
