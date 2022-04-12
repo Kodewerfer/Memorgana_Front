@@ -29,14 +29,6 @@ function Memowo(props: any) {
     scrollToTarget();
   }, [memoID, memos]);
 
-  const patchMemoItem = useCallback(
-    (id: string) => {
-      Logger.dev(`Patching ${id}`);
-      // fetcheMemos();
-    },
-    [memos]
-  );
-
   const scrollToTarget = useCallback(() => {
     const innerHTML = refInner?.current;
     if (!memoID) {
@@ -68,13 +60,14 @@ function Memowo(props: any) {
     >
       <div className={`${Styles.list}`}>
         {memos.map((memo, i) => {
-          const ref = React.createRef(); //kinda of a hack lol
+          const ref = React.createRef(); //kinda of a hack lol, for scrolling to each item
           const UI = (
             <Item
-              key={memo._id}
+              key={JSON.stringify(memo)} // Very expensive, will re-render the whole list if every item has one item as relate and which was changed.
               memo={memo}
               isAactive={memoID === memo._id}
               ref={ref}
+              parentRefresh={fetcheMemos}
             />
           );
           currentUI.current[memo._id] = ref;

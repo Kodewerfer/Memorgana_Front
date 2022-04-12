@@ -17,6 +17,7 @@ import useMemoItem from "../hooks/useMemoItem";
 
 type TItemProps = {
   memo: IMemo;
+  parentRefresh?: () => any;
   useCompact?: boolean;
   isAactive?: boolean;
 };
@@ -27,7 +28,7 @@ type TItemProps = {
  * @param useCompact primarily for rendering compact items in the search modal
  */
 export function ItemUI(
-  { memo, useCompact = false, isAactive = false }: TItemProps,
+  { memo, parentRefresh, useCompact = false, isAactive = false }: TItemProps,
   ref: any
 ) {
   const navigate = useNavigate();
@@ -66,8 +67,13 @@ export function ItemUI(
 
   const handlePatch = useCallback(() => {
     if (!patchMemoItem || !itemData) return;
-    patchMemoItem(itemData._id);
-    fetchItem();
+
+    Logger.dev(`Patching ${itemData._id}`);
+    // patch then fetch again
+    patchMemoItem(() => {
+      fetchItem();
+      if (parentRefresh) parentRefresh();
+    });
   }, [fetchItem, patchMemoItem]);
 
   // manual save
@@ -121,7 +127,7 @@ function Related({ memo, active = false }: TRelatedProps) {
   return (
     <div className={Styles.related}>
       {memo.entries_related.map((entry) => {
-        return <RelatedEntries key={entry._id} entry={entry} />;
+        return <RelatedEntries key={entry._id + entry.keyword} entry={entry} />;
       })}
       {/* new related entry */}
       <span

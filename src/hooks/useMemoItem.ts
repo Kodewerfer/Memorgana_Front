@@ -1,9 +1,11 @@
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getQueryURI } from '../helpers/URIHelper';
 import IMemo from "../types/IMemo";
 
 export default function useMemoItem(memo: IMemo) {
+
+  // const hasChanged = useRef(false);
   const [item, setItem] = useState<IMemo>(memo);
 
   const fetchItem = useCallback(() => {
@@ -12,9 +14,24 @@ export default function useMemoItem(memo: IMemo) {
     })
   }, [memo, setItem]);
 
-  const patchMemoItem = useCallback((ID: string) => {
-    console.log("pathing")
-  }, [setItem]);
+  // const changeItem = useCallback((val) => {
+  //   setItem(prev => {
+  //     if (prev !== val && hasChanged.current === false)
+  //       hasChanged.current = true;
+
+  //     return val;
+  //   })
+
+  // }, [item, setItem]);
+
+  const patchMemoItem = useCallback(async (callback: () => any) => {
+    const URI = getQueryURI();
+
+    //TODO: alert for error
+    await axios.patch(`${URI}/${item._id}`, item);
+
+    callback();
+  }, [item, setItem]);
 
   // fallback
   useEffect(() => {
