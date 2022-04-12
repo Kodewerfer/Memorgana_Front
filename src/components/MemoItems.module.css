@@ -6,13 +6,13 @@
   text-zinc-200 shadow-xl;
 }
 .title {
-  @apply flex h-12 w-full items-center rounded-t-xl
-  bg-zinc-600 bg-gradient-to-r from-zinc-800 to-zinc-700 text-center
-  text-2xl font-bold text-cyan-400 2xl:pl-10 2xl:text-left;
+  @apply flex h-12 w-full rounded-t-xl
+  bg-zinc-600 bg-gradient-to-r from-zinc-800 to-zinc-700 pl-10
+  text-center text-2xl font-bold text-cyan-400;
 }
 
 .item input {
-  @apply w-fit border-0 bg-zinc-600/0 outline-none;
+  @apply w-full text-ellipsis border-0 bg-zinc-600/0 pr-10 outline-none;
 }
 
 .itemCompact {
